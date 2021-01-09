@@ -2,11 +2,17 @@
 #include "cjsonik.h"
 
 
-plansza stan_gry(const char * const swiat)
+stan* stan_gry(const char * const swiat)
 {
-    plansza super;
+    stan* gra;
+    gra=(stan*) malloc(sizeof(stan));
+    gra->direction=(char*) malloc(sizeof(char));
+    gra->field_type=(char*) malloc(sizeof(char));
+    gra->current_session=(char*) malloc(sizeof(char));
+    gra->field_bonus=(char*) malloc(sizeof(char));
+    
+
     const cJSON *payload = NULL;
-    const cJSON *payloads = NULL;
     const cJSON *status = NULL;
     //int status = 0;
     cJSON *swiat_json = cJSON_Parse(swiat);
@@ -17,8 +23,7 @@ plansza stan_gry(const char * const swiat)
         {
             fprintf(stderr, "Error before: %s\n", error_ptr);
         }
-       // status = 0;
-       // goto end;
+        status = 0;
     }
 
     status = cJSON_GetObjectItemCaseSensitive(swiat_json, "status");
@@ -28,23 +33,7 @@ plansza stan_gry(const char * const swiat)
     }
 
     payload = cJSON_GetObjectItemCaseSensitive(swiat_json, "payload");
-  //  cJSON_ArrayForEach(resolution, resolutions)
-  //  {
-  //      cJSON *width = cJSON_GetObjectItemCaseSensitive(payload, "width");
-  //      cJSON *height = cJSON_GetObjectItemCaseSensitive(payload, "height");
-  //
-  //      if (!cJSON_IsNumber(width) || !cJSON_IsNumber(height))
-  //      {
-  //          status = 0;
-  //          goto end;
-  //      }
-  //
-  //      if ((width->valuedouble == 1920) && (height->valuedouble == 1080))
-  //      {
-  //          status = 1;
-  //          goto end;
-  //      }
-  //  }
+    cJSON*name=cJSON_GetObjectItemCaseSensitive(payload, "name");
     cJSON*current_x=cJSON_GetObjectItemCaseSensitive(payload, "current_x");
     cJSON*current_y=cJSON_GetObjectItemCaseSensitive(payload, "current_y");
     cJSON*current_session=cJSON_GetObjectItemCaseSensitive(payload, "current_session");
@@ -53,38 +42,111 @@ plansza stan_gry(const char * const swiat)
     cJSON*field_type=cJSON_GetObjectItemCaseSensitive(payload, "field_type");
     cJSON*field_bonus=cJSON_GetObjectItemCaseSensitive(payload, "field_bonus");
 
-    //printf("%s",field_type->valuestring);
-    if(strcmp(field_type->valuestring,"grass")==0)
-    printf("kirwa");
-    super.tab[current_y->valueint][current_x->valueint]='g';
-    if(field_type->valuestring=="sand")
-    super.tab[current_y->valueint][current_x->valueint]='s';
-    if(field_type->valuestring=="wall")
-    super.tab[current_y->valueint][current_x->valueint]='w';
+    gra->name=name->valuestring;
+    gra->current_x=current_x->valueint;
+    gra->current_y=current_y->valueint;
+    strcpy(gra->current_session,current_session->valuestring);
+    strcpy(gra->direction,direction->valuestring);
+    gra->step=step->valueint;
+    strcpy(gra->field_type,field_type->valuestring);
+    strcpy(gra->field_bonus,field_bonus->valuestring);
 
- return super;
 
- //end:
- //   cJSON_Delete(swiat_json);
- //   return status;
+  cJSON_Delete(swiat_json);
+  return gra;
+
 }
 
-void wypisz_macierz(plansza xd)
+stanex* stan_gry_ex(const char * const swiat)
 {
+    stanex* gra;
+    int k=1;
+    gra=(stanex*) malloc(sizeof(stanex));
+    gra->type1=(char*) malloc(sizeof(char)+20);
+    gra->type2=(char*) malloc(sizeof(char)+20);
+    gra->type3=(char*) malloc(sizeof(char)+20);
+    const cJSON *element= NULL;
+    const cJSON *payload = NULL;
+    const cJSON *list = NULL;
+    const cJSON *status = NULL;
     
-    int i, j;
-    printf("[ ");
-    for (i = 0; i < 10; i++)
+     
+    //int status = 0;
+    cJSON *swiat_json = cJSON_Parse(swiat);
+    if (swiat_json == NULL)
     {
-        for (j=0; j < 10; j++) 
+        const char *error_ptr = cJSON_GetErrorPtr();
+        if (error_ptr != NULL)
         {
-        printf("%c ", xd.tab[i][j]);
+            fprintf(stderr, "Error before: %s\n", error_ptr);
         }
-        if (i < (9))
-        printf("\n  ");
+        status = 0;
     }
-    printf("]\n");
 
+    status = cJSON_GetObjectItemCaseSensitive(swiat_json, "status");
+    if (cJSON_IsString(status) && (status->valuestring == "Success"))
+    {
+        printf("Generowanie świata \"%s\"\n", status->valuestring);
+    }
+
+    payload = cJSON_GetObjectItemCaseSensitive(swiat_json, "payload");
+    list= cJSON_GetObjectItemCaseSensitive(payload, "list");
+    cJSON_ArrayForEach(element, list)
+    {
+        
+        
+        if(k==1)
+        {
+            cJSON *x1=cJSON_GetObjectItemCaseSensitive(element, "x");
+            cJSON *y1=cJSON_GetObjectItemCaseSensitive(element, "y");
+            cJSON *type1=cJSON_GetObjectItemCaseSensitive(element, "type");
+            gra->x1=x1->valueint;
+            gra->y1=y1->valueint;
+            strcpy(gra->type1,type1->valuestring);
+        }
+        if(k==2)
+        {
+            cJSON*x2=cJSON_GetObjectItemCaseSensitive(element, "x");
+            cJSON*y2=cJSON_GetObjectItemCaseSensitive(element, "y");
+            cJSON *type2=cJSON_GetObjectItemCaseSensitive(element, "type");
+            gra->x2=x2->valueint;
+            gra->y2=y2->valueint;
+            strcpy(gra->type2,type2->valuestring);
+        }
+        if(k==3)
+        {
+            cJSON*x3=cJSON_GetObjectItemCaseSensitive(element, "x");
+            cJSON*y3=cJSON_GetObjectItemCaseSensitive(element, "y");
+            cJSON *type3=cJSON_GetObjectItemCaseSensitive(element, "type");
+            gra->x3=x3->valueint;
+            gra->y3=y3->valueint;
+            strcpy(gra->type3,type3->valuestring);
+        }
+        k++;
+        
+    }
+    
+  cJSON_Delete(swiat_json);
+  return gra;
 
 }
+
+//void wypisz_macierz(plansza xd)
+//{
+//    
+//    int i, j;
+//    printf("[ ");
+//    for (i = 10; i >0; i--)
+//    {
+//        for (j=0; j < 10; j++) 
+//        {
+//        printf("%c ", xd.tab[i][j]);
+//        }
+//        if (i < (9))
+//        printf("\n  ");
+//    }
+//    printf("]\n");
+//
+//
+//}
 

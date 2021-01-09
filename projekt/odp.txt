@@ -1,1 +1,1 @@
-{"status": "Success", "payload": {"name": "First world 28", "current_x": 4, "current_y": 1, "current_session": "d541cb35-0ebc-4bdb-bc88-e0e18783b428", "direction": "E", "step": 142, "field_type": "grass", "field_bonus": ""}}
+{"status": "Success", "payload": {"list": [{"x": 2, "y": 2, "type": "sand"}, {"x": 1, "y": 2, "type": "grass"}, {"x": 0, "y": 2, "type": "wall"}]}}
