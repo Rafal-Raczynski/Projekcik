@@ -6,12 +6,6 @@ stan* stan_gry(const char * const swiat)
 {
     stan* gra;
     gra=(stan*) malloc(sizeof(stan));
-    gra->direction=(char*) malloc(sizeof(char));
-    gra->field_type=(char*) malloc(sizeof(char));
-    gra->current_session=(char*) malloc(sizeof(char));
-    gra->field_bonus=(char*) malloc(sizeof(char));
-    
-
     const cJSON *payload = NULL;
     const cJSON *status = NULL;
     //int status = 0;
@@ -41,6 +35,12 @@ stan* stan_gry(const char * const swiat)
     cJSON*step=cJSON_GetObjectItemCaseSensitive(payload, "step");
     cJSON*field_type=cJSON_GetObjectItemCaseSensitive(payload, "field_type");
     cJSON*field_bonus=cJSON_GetObjectItemCaseSensitive(payload, "field_bonus");
+    
+    gra->direction=(char*) malloc(sizeof(char)*strlen(direction->valuestring+1)+10);
+    gra->field_type=(char*) malloc(sizeof(char)*strlen(field_type->valuestring+1)+10);
+    gra->current_session=(char*) malloc(sizeof(char)*strlen(current_session->valuestring+1)+10);
+    gra->field_bonus=(char*) malloc(sizeof(char)*strlen(field_bonus->valuestring+1)+10);
+    
 
     gra->name=name->valuestring;
     gra->current_x=current_x->valueint;
@@ -94,6 +94,8 @@ stanex* stan_gry_ex(const char * const swiat)
     cJSON_ArrayForEach(element, list)
     {
         
+        //gra->x = (int*) malloc(sizeof(int));
+        //gra->y = (int*) malloc(sizeof(int));
         
         if(k==1)
         {
@@ -122,6 +124,20 @@ stanex* stan_gry_ex(const char * const swiat)
             gra->y3=y3->valueint;
             strcpy(gra->type3,type3->valuestring);
         }
+   //     cJSON *x=cJSON_GetObjectItemCaseSensitive(element, "x");
+   //     cJSON *y=cJSON_GetObjectItemCaseSensitive(element, "y");
+   //     cJSON *type=cJSON_GetObjectItemCaseSensitive(element, "type");
+  ////    gra->type[k]*=(char**) malloc(sizeof(char*)*strlen(type->valuestring+1));
+  //    gra->type = (char**) malloc(sizeof(char*) );
+  //    for (i=0;i<m->wiersze;i++) {
+  //    m->tab[i] = (float*) malloc(sizeof(float) * m->kolumny);
+  //for (j=0;j< m->kolumny; j++)
+  //    m->tab[i][j] = j+1+i;
+
+  //
+  //    gra->x[k]=x->valueint;
+  //    gra->y[k]=y->valueint;
+  //      strcpy(gra->type[k]*,type->valuestring);  
         k++;
         
     }

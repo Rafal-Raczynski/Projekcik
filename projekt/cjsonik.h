@@ -24,6 +24,10 @@ int x1,x2,x3,y1,y2,y3;
 char*type1;
 char*type2;
 char*type3;
+//int *x;
+//int *y;
+//char **type;
+//
 }stanex;
 
 stan* stan_gry(const char * const swiat);
