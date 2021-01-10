@@ -72,7 +72,7 @@ void make_request(char*url)
         }    
         else
         {
-           FILE *fin= fopen("odp.txt","w+");
+           FILE *fin= fopen("odp.json","w+");
            fprintf(fin,"%s", chunk.response);
            fclose(fin);
             printf("%s\n", chunk.response);
@@ -154,6 +154,17 @@ void rotate_right(char*token)
     free(url);
     
 
+}
+
+void reset(char*token)
+{
+    char *url; 
+    char *url_bez_swiata="http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/reset/";
+    url = (char*) malloc((sizeof(char) * strlen((url_bez_swiata)+1)) + (sizeof(char) *strlen((token) + 1))+10);
+    strcpy(url,url_bez_swiata);
+    strcat(url,token);
+    make_request(url);
+    free(url);
 }
 
 

@@ -33,7 +33,7 @@ int main(int argc, char **argv)
     {
     move(argv[1]);
     wczytaj("mapa.txt",wizualizacja);
-    FILE *f = fopen("odp.txt", "r+");
+    FILE *f = fopen("odp.json", "r+");
     fread(buffer,1,2048,f);
     wizualizacja->gra=stan_gry(buffer);
     printf("%d",wizualizacja->gra->current_x);
@@ -48,13 +48,19 @@ int main(int argc, char **argv)
     if(strcmp("explore", argv[i]) == 0)
     {   
         explore(argv[1]);
-        FILE *f = fopen("odp.txt", "r+");
+        FILE *f = fopen("odp.json", "r+");
         fread(buffer,1,2048,f); 
         wczytaj("mapa.txt",wizualizacja);
         wizualizacja->graex=stan_gry_ex(buffer);
         uzupelnijex(wizualizacja);
         wypisztxt("mapa.txt",wizualizacja);
         wypisz(wizualizacja);
+    }
+    if(strcmp("reset", argv[i]) == 0)
+    {
+    reset(argv[1]);
+    ustawienie_poczatkowe(wizualizacja);
+    wypisztxt("mapa.txt",wizualizacja);
     }
 
 

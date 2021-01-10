@@ -21,5 +21,6 @@ void move(char*token);
 void explore(char*token);
 void rotate_left(char*token);
 void rotate_right(char*token);
+void reset(char*token);
 
 #endif

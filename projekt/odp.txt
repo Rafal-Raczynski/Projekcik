@@ -1,1 +1,1 @@
-{"status": "Success", "payload": {"list": [{"x": 5, "y": 11, "type": "wall"}, {"x": 4, "y": 11, "type": "wall"}, {"x": 3, "y": 11, "type": "wall"}]}}
+{"status": "Success", "payload": {"list": [{"x": 3, "y": 0, "type": "wall"}, {"x": 4, "y": 0, "type": "wall"}, {"x": 5, "y": 0, "type": "wall"}]}}
