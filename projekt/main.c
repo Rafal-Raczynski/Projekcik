@@ -21,6 +21,8 @@ int main(int argc, char **argv)
     
     for(int i=2;argv[i]!=NULL;i++)
     {
+    //FILE *f = fopen("odp.txt", "r+");
+    //fread(buffer,1,2048,f);
     if(strcmp("info", argv[i]) == 0)
     info(argv[1]);
     if(strcmp("rotate_right", argv[i]) == 0)
@@ -39,13 +41,23 @@ int main(int argc, char **argv)
     printf("%c",wizualizacja->mapa[1][1]);
     wypisztxt("mapa.txt",wizualizacja);
     wypisz(wizualizacja);
-    fclose(f);
 
     
     }
 
     if(strcmp("explore", argv[i]) == 0)
-    explore(argv[1]);
+    {   
+        explore(argv[1]);
+        FILE *f = fopen("odp.txt", "r+");
+        fread(buffer,1,2048,f); 
+        wczytaj("mapa.txt",wizualizacja);
+        wizualizacja->graex=stan_gry_ex(buffer);
+        uzupelnijex(wizualizacja);
+        wypisztxt("mapa.txt",wizualizacja);
+        wypisz(wizualizacja);
+    }
+
+
     //FILE *f = fopen("odp.txt", "r");
     //fread(buffer,1,2048,f);
     //wizualizacja->gra=stan_gry(buffer);
@@ -63,6 +75,7 @@ int main(int argc, char **argv)
     //free(h->type1);
     //free(h->type2);
     //free(h->type3);
+    //fclose(f);
     }
     return 0;
 }

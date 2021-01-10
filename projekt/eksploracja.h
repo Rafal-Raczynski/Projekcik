@@ -17,5 +17,6 @@ void wypisztxt(char*fnazwa,mapka* x);
 void wczytaj(char*fnazwa,mapka*x);
 void ustawienie_poczatkowe(mapka *x);
 void uzupelnij(mapka*x);
+void uzupelnijex(mapka*x);
 
 #endif
