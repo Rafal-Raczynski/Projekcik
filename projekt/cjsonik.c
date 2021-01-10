@@ -124,6 +124,7 @@ stanex* stan_gry_ex(const char * const swiat)
             gra->y3=y3->valueint;
             strcpy(gra->type3,type3->valuestring);
         }
+    
    //     cJSON *x=cJSON_GetObjectItemCaseSensitive(element, "x");
    //     cJSON *y=cJSON_GetObjectItemCaseSensitive(element, "y");
    //     cJSON *type=cJSON_GetObjectItemCaseSensitive(element, "type");
