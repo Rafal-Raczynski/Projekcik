@@ -12,3 +12,6 @@ odkurzacz: $(DEPS)
 clean:
 	rm -f main
 	rm -f *.o
+
+test:
+	./odkurzacz qwerty_28 move explore rotate_right rotate_right explore 
