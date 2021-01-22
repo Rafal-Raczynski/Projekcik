@@ -4,7 +4,7 @@
 #include <curl/curl.h>
 #include "komunikacja.h"
 #include "cjsonik.h"
-#include "eksploracja.h"
+#include "mapa.h"
 
 
 
@@ -17,7 +17,18 @@ int main(int argc, char **argv)
    //FILE *f = fopen("odp.txt", "r");
    //fread(buffer,1,2048,f);
    //fclose(f);
-    mapka* wizualizacja=(mapka*) malloc(sizeof(mapka));;
+    mapka* wizualizacja=(mapka*) malloc(sizeof(mapka));
+    ustawienie_poczatkowe(wizualizacja);
+    wypisz(wizualizacja);
+    FILE *f = fopen("odp.json", "r+");
+    fread(buffer,1,2048,f);
+    info(argv[1]);
+    wizualizacja->gra=stan_gry(buffer);
+    wizualizacja->poczatkowy_x=wizualizacja->gra->current_x;
+    wizualizacja->poczatkowy_y=wizualizacja->gra->current_y;
+    uzupelnij(wizualizacja);
+    wypisz(wizualizacja);
+
     
     for(int i=2;argv[i]!=NULL;i++)
     {
@@ -32,15 +43,18 @@ int main(int argc, char **argv)
     if(strcmp("move", argv[i]) == 0)
     {
     move(argv[1]);
+    //printf("ala ma kota");
     wczytaj("mapa.txt",wizualizacja);
+    //printf("ala ma kota");
     FILE *f = fopen("odp.json", "r+");
     fread(buffer,1,2048,f);
     wizualizacja->gra=stan_gry(buffer);
-    printf("%d",wizualizacja->gra->current_x);
+    //printf("%d",wizualizacja->gra->current_x);
+
     uzupelnij(wizualizacja);
-    printf("%c",wizualizacja->mapa[1][1]);
-    wypisztxt("mapa.txt",wizualizacja);
-    wypisz(wizualizacja);
+    //printf("%c",wizualizacja->mapa[1][1]);
+    //wypisztxt("mapa.txt",wizualizacja);
+    //wypisz(wizualizacja);
 
     
     }
