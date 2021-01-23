@@ -13,7 +13,7 @@ logika* poczatek(char*token)
     wizualizacja->swiat->poczatkowy_x=wizualizacja->gra->current_x;
     wizualizacja->swiat->poczatkowy_y=wizualizacja->gra->current_y;
     uzupelnij(wizualizacja);
-    wypisz(wizualizacja->swiat);
+    //wypisz(wizualizacja->swiat);
     wypisztxt("mapa.txt",wizualizacja->swiat);
 
     return wizualizacja;
@@ -97,7 +97,6 @@ int rusz_do_gory(logika* g, char* token)
   g->swiat->mapa[interpretuj_wspolrzedna_y(g)+1][interpretuj_wspolrzedna_x(g)]='w';
   wypisztxt("mapa.txt", g->swiat);
   wypisz(g->swiat);
-  
   return 1;
   }
   return 0;
@@ -252,3 +251,47 @@ void uzupelnijex(logika* m)
     for (int i = 0; i < 3; i++) 
         m->swiat->mapa[interpretuj_wspolrzedna_y_ex(m,i)][interpretuj_wspolrzedna_x_ex(m,i)]= tlumacz_teren(m->graex->type[i]);
 }
+
+void idz_do_sciany(logika*m,char*token)
+{
+  eksploruj(m,token);
+  if(rusz_do_gory(m,token)!=1)
+  {
+    eksploruj(m,token);
+    while(rusz_do_gory(m,token)!=1)
+    {
+      eksploruj(m,token);
+      rusz_do_gory(m,token);
+      eksploruj(m,token);
+    }
+  }
+ rotate_right(token);
+ //eksploruj(m,token);
+}
+
+//void petla(logika*m,char*token)
+//{
+//  int s=0;
+//  int x=m->gra->current_x;
+//  int y=m->gra->current_y;
+//  while((m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)+1]!='w')&&(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]=='w'))
+//  {
+//    rusz_w_prawo(m,token);
+//    eksploruj(m,token);
+//    
+//  }
+//  
+//  
+//  
+//  
+//
+//  
+//  
+//
+//}
+//
+//void bot(logika*m,char*token)
+//{
+//  idz_do_sciany(logika*m,char*token);
+//  petla(logika*m,char*token);
+//}

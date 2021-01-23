@@ -18,12 +18,17 @@ int main(int argc, char **argv)
     wizualizacja=(logika*)malloc(sizeof(logika));
     char*token;
     wizualizacja=poczatek(argv[1]);
-    rusz_do_gory(wizualizacja,argv[1]);
-    rusz_do_gory(wizualizacja,argv[1]);
-    rusz_do_gory(wizualizacja,argv[1]);
-    rusz_do_gory(wizualizacja,argv[1]);
-    rusz_w_lewo(wizualizacja,argv[1]);
-    rusz_w_prawo(wizualizacja,argv[1]);
+    //rusz_do_gory(wizualizacja,argv[1]);
+    //eksploruj(wizualizacja,argv[1]);
+    //rusz_do_gory(wizualizacja,argv[1]);
+    //eksploruj(wizualizacja,argv[1]);
+    //rusz_do_gory(wizualizacja,argv[1]);
+    //eksploruj(wizualizacja,argv[1]);
+    //rusz_do_gory(wizualizacja,argv[1]);
+    //eksploruj(wizualizacja,argv[1]);
+    //rusz_w_lewo(wizualizacja,argv[1]);
+    //rusz_w_prawo(wizualizacja,argv[1]);
+    idz_do_sciany(wizualizacja,argv[1]);
     //eksploruj(wizualizacja,argv[1]);
     reset(argv[1]);
     

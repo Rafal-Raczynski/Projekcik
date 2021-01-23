@@ -28,6 +28,8 @@ typedef struct stan_gryex
 
 stan* stan_gry(const char * const swiat);
 stanex* stan_gry_ex(const char * const swiat);
+void zwolnij_stan(stan* x);
+void zwolnij_stan_ex(stanex* x);
 //void wypisz_macierz(plansza xd);
 
 #endif

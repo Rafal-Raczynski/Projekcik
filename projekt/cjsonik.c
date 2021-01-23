@@ -114,3 +114,20 @@ stanex* stan_gry_ex(const char * const swiat)
 
 }
 
+void zwolnij_stan(stan* x)
+{
+    free(x->current_session);
+    free(x->direction);
+    free(x->field_bonus);
+    free(x->field_type);
+    free(x);
+}
+
+void zwolnij_stan_ex(stanex* x)
+{
+    for(int i=0;i<3;i++)
+    {
+        free(x->type[i]);
+    }
+    free(x);
+}

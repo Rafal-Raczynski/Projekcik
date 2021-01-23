@@ -27,6 +27,7 @@ void eksploruj(logika*g, char* token);
 int interpretuj_wspolrzedna_x_ex(logika*a,int i);
 int interpretuj_wspolrzedna_y_ex(logika*a,int i);
 void uzupelnijex(logika* m);
+void idz_do_sciany(logika*m,char*token);
 
 
 #endif
