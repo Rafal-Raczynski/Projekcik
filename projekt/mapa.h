@@ -8,8 +8,6 @@
 typedef struct Mapka
 {
     char **mapa;
-    stan*gra;
-    stanex*graex;
     int p,q,wiersze,kolumny;
     int poczatkowy_x,poczatkowy_y;
     
@@ -21,13 +19,11 @@ mapka* nowa_macierz_gora(mapka*m);
 mapka* nowa_macierz_prawo(mapka*m);
 mapka* nowa_macierz_lewo(mapka*m);
 mapka* nowa_macierz_dol(mapka*m);
-mapka* nowa_macierz(mapka*m);
 void wypisz(mapka* x);
 void wypisztxt(char*fnazwa,mapka* x);
 void wczytaj(char*fnazwa,mapka*x);
-void ustawienie_poczatkowe(mapka *x);
-void uzupelnij(mapka*x);
-void uzupelnijex(mapka*x);
+mapka* ustawienie_poczatkowe(mapka *x);
 void zwolnij(mapka *x);
+
 
 #endif

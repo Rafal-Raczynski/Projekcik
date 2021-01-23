@@ -60,18 +60,15 @@ stan* stan_gry(const char * const swiat)
 stanex* stan_gry_ex(const char * const swiat)
 {
     stanex* gra;
-    int k=1;
+    int i=0;
     gra=(stanex*) malloc(sizeof(stanex));
-    gra->type1=(char*) malloc(sizeof(char)+20);
-    gra->type2=(char*) malloc(sizeof(char)+20);
-    gra->type3=(char*) malloc(sizeof(char)+20);
     const cJSON *element= NULL;
     const cJSON *payload = NULL;
     const cJSON *list = NULL;
     const cJSON *status = NULL;
     
      
-    //int status = 0;
+    
     cJSON *swiat_json = cJSON_Parse(swiat);
     if (swiat_json == NULL)
     {
@@ -93,77 +90,27 @@ stanex* stan_gry_ex(const char * const swiat)
     list= cJSON_GetObjectItemCaseSensitive(payload, "list");
     cJSON_ArrayForEach(element, list)
     {
-        
-        //gra->x = (int*) malloc(sizeof(int));
-        //gra->y = (int*) malloc(sizeof(int));
-        
-        if(k==1)
-        {
-            cJSON *x1=cJSON_GetObjectItemCaseSensitive(element, "x");
-            cJSON *y1=cJSON_GetObjectItemCaseSensitive(element, "y");
-            cJSON *type1=cJSON_GetObjectItemCaseSensitive(element, "type");
-            gra->x1=x1->valueint;
-            gra->y1=y1->valueint;
-            strcpy(gra->type1,type1->valuestring);
-        }
-        if(k==2)
-        {
-            cJSON*x2=cJSON_GetObjectItemCaseSensitive(element, "x");
-            cJSON*y2=cJSON_GetObjectItemCaseSensitive(element, "y");
-            cJSON *type2=cJSON_GetObjectItemCaseSensitive(element, "type");
-            gra->x2=x2->valueint;
-            gra->y2=y2->valueint;
-            strcpy(gra->type2,type2->valuestring);
-        }
-        if(k==3)
-        {
-            cJSON*x3=cJSON_GetObjectItemCaseSensitive(element, "x");
-            cJSON*y3=cJSON_GetObjectItemCaseSensitive(element, "y");
-            cJSON *type3=cJSON_GetObjectItemCaseSensitive(element, "type");
-            gra->x3=x3->valueint;
-            gra->y3=y3->valueint;
-            strcpy(gra->type3,type3->valuestring);
-        }
-    
-   //     cJSON *x=cJSON_GetObjectItemCaseSensitive(element, "x");
-   //     cJSON *y=cJSON_GetObjectItemCaseSensitive(element, "y");
-   //     cJSON *type=cJSON_GetObjectItemCaseSensitive(element, "type");
-  ////    gra->type[k]*=(char**) malloc(sizeof(char*)*strlen(type->valuestring+1));
-  //    gra->type = (char**) malloc(sizeof(char*) );
-  //    for (i=0;i<m->wiersze;i++) {
-  //    m->tab[i] = (float*) malloc(sizeof(float) * m->kolumny);
-  //for (j=0;j< m->kolumny; j++)
-  //    m->tab[i][j] = j+1+i;
+        cJSON *x = cJSON_GetObjectItemCaseSensitive(element, "x");
+        cJSON *y = cJSON_GetObjectItemCaseSensitive(element, "y");
+        cJSON *type = cJSON_GetObjectItemCaseSensitive(element, "type");
 
-  //
-  //    gra->x[k]=x->valueint;
-  //    gra->y[k]=y->valueint;
-  //      strcpy(gra->type[k]*,type->valuestring);  
-        k++;
-        
+        if (!cJSON_IsNumber(x) || !cJSON_IsNumber(y))
+        {
+            printf("Wczytana dana to nie liczba!");
+        }
+
+        gra->x[i]=x->valueint;
+        gra->y[i]=y->valueint;
+        gra->type[i] = (char*) malloc(sizeof(char) * (strlen(type->valuestring) + 1));
+        strcpy(gra->type[i], type->valuestring);
+        i++; 
     }
+    
+        
+    
     
   cJSON_Delete(swiat_json);
   return gra;
 
 }
-
-//void wypisz_macierz(plansza xd)
-//{
-//    
-//    int i, j;
-//    printf("[ ");
-//    for (i = 10; i >0; i--)
-//    {
-//        for (j=0; j < 10; j++) 
-//        {
-//        printf("%c ", xd.tab[i][j]);
-//        }
-//        if (i < (9))
-//        printf("\n  ");
-//    }
-//    printf("]\n");
-//
-//
-//}
 

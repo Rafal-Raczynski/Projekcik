@@ -1,4 +1,4 @@
-DEPS=main.o komunikacja.o mapa.o cjsonik.o ../../cJSON/cJSON.o
+DEPS=main.o komunikacja.o mapa.o cjsonik.o logika.o ../../cJSON/cJSON.o
 
 
 odkurzacz: $(DEPS)
