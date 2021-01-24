@@ -75,7 +75,7 @@ void make_request(char*url)
            FILE *fin= fopen("odp.json","w+");
            fprintf(fin,"%s", chunk.response);
            fclose(fin);
-            printf("%s\n", chunk.response);
+            
             
         }
 
@@ -86,104 +86,56 @@ void make_request(char*url)
     
     
 }
-//void zapis(char*fnazwa)
-//{
-//    FILE* fin=fopen(fnazwa,"w+");
-//    
-//}
 
 void info(char *token) 
 {
-    char *url; 
-    char *url_bez_swiata="http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/info/";
-    url = (char*) malloc((sizeof(char) * (strlen(url_bez_swiata)+1)) + (sizeof(char) *(strlen((token) + 1)))+10);
-    strcpy(url,url_bez_swiata);
+    char url[255]; 
+    strcpy(url,"http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/info/");
     strcat(url,token);
-    make_request(url);
-    free(url);
-    
+    make_request(url);   
 }
 
 void move(char*token)
 {
-    char *url; 
-    char *url_bez_swiata="http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/move/";
-    url = (char*) malloc((sizeof(char) * strlen((url_bez_swiata)+1)) + (sizeof(char) *strlen((token) + 1))+10);
-    strcpy(url,url_bez_swiata);
+    char url[255]; 
+    strcpy(url,"http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/move/");
     strcat(url,token);
     make_request(url);
-    free(url);
 }
 
 
 void explore(char*token)
 {
-    char *url; 
-    char *url_bez_swiata="http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/explore/";
-    url = (char*) malloc((sizeof(char) * strlen((url_bez_swiata)+1)) + (sizeof(char) *strlen((token) + 1))+10);
-    strcpy(url,url_bez_swiata);
+    char url[255]; 
+    strcpy(url,"http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/explore/");
     strcat(url,token);
     make_request(url);
-    free(url);
 }
 
 void rotate_left(char*token)
 {   
-    
-    char *url; 
-    char *url_bez_swiata="http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/rotate/";
-    url = (char*) malloc((sizeof(char) * strlen(url_bez_swiata)+1) + (sizeof(char) *strlen((token) + 1))+10);
-    strcpy(url,url_bez_swiata);
+    char url[255]; 
+    strcpy(url,"http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/rotate/");
     strcat(url,token);
     strcat(url,"/left");
     make_request(url);
-    free(url);
     
 }
 
 void rotate_right(char*token)
 {   
-    char *url; 
-    char *url_bez_swiata="http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/rotate/";
-    url = (char*) malloc((sizeof(char) * strlen(url_bez_swiata)+1) + (sizeof(char) *strlen((token) + 1))+10);
-    strcpy(url,url_bez_swiata);
+    char url[255]; 
+    strcpy(url,"http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/rotate/");
     strcat(url,token);
     strcat(url,"/right");
     make_request(url);
-   // printf("%s\n",url);
-    free(url);
     
-
 }
 
 void reset(char*token)
 {
-    char *url; 
-    char *url_bez_swiata="http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/reset/";
-    url = (char*) malloc((sizeof(char) * strlen((url_bez_swiata)+1)) + (sizeof(char) *strlen((token) + 1))+10);
-    strcpy(url,url_bez_swiata);
+    char url[255]; 
+    strcpy(url,"http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/reset/");
     strcat(url,token);
     make_request(url);
-    free(url);
 }
-
-
-
-//int main(int argc, char **argv)
-//{
-//    char*token;
-//    for(int i=2;argv[i]!=NULL;i++)
-//    {
-//    if(strcmp("info", argv[i]) == 0)
-//    info(argv[1]);
-//    if(strcmp("rotate_right", argv[i]) == 0)
-//    rotate_right(argv[1]);
-//    if(strcmp("rotate_left", argv[i]) == 0)
-//    rotate_left(argv[1]);
-//    if(strcmp("move", argv[i]) == 0)
-//    move(argv[1]);
-//    if(strcmp("explore", argv[i]) == 0)
-//    explore(argv[1]);
-//    }
-//    return 0;
-//}

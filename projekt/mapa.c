@@ -97,14 +97,29 @@ mapka* nowa_macierz_lewo(mapka*m)
 
 void wypisz(mapka* x)
 {
-    int i, j;
-    
+    int i, j,k;
+    k=0;
+
+
     for (i = x->wiersze-1; i >= 0; i--)
     {
+        if(i==x->wiersze-1)
+        {
+            printf("    ");
+            for(int k = 0; k < x->kolumny; k++)
+            {
+               printf("%4d",k+1);
+            }
+            printf("\n");
+        }
+
         for (j=0; j < x->kolumny; j++) 
         {
-        
-        printf("%c", x->mapa[i][j]);
+            if(j==0)
+            {
+                printf("%4d",i+1);
+            }
+            printf("%4c", x->mapa[i][j]);
         }
         
         printf("\n");
@@ -116,6 +131,7 @@ void wypisztxt(char*fnazwa,mapka* x)
 {
     int i, j;
     FILE*fin=fopen(fnazwa,"w+");
+    fprintf(fin,"%d\n%d\n",x->wiersze,x->kolumny);
     for (i = x->wiersze-1; i >= 0; i--)
     {
         for (j=0; j < x->kolumny; j++) 
@@ -130,6 +146,7 @@ void wypisztxt(char*fnazwa,mapka* x)
 void wczytaj(char*fnazwa,mapka*x)
 {
  FILE*fin=fopen(fnazwa,"r+");
+    fscanf(fin, "%d%d ", &x->wiersze,&x->kolumny);
     for (int i=x->wiersze-1; i >= 0; i--) {
         for (int j=0; j < x->kolumny; j++) {
 

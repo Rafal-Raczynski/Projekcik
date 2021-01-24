@@ -14,6 +14,7 @@
 int main(int argc, char **argv)
 {
     //mapka* wizualizacja;
+    char komenda [20];
     logika* wizualizacja;
     wizualizacja=(logika*)malloc(sizeof(logika));
     char*token;
@@ -28,67 +29,70 @@ int main(int argc, char **argv)
     //eksploruj(wizualizacja,argv[1]);
     //rusz_w_lewo(wizualizacja,argv[1]);
     //rusz_w_prawo(wizualizacja,argv[1]);
+    //idz_do_sciany(wizualizacja,argv[1]);
     idz_do_sciany(wizualizacja,argv[1]);
+    //bot(wizualizacja,argv[1]);
     //eksploruj(wizualizacja,argv[1]);
-    reset(argv[1]);
+    //reset(argv[1]);
+if(argc>2)
+{    
     
-    //for(int i=2;argv[i]!=NULL;i++)
-    //{
-    ////FILE *f = fopen("odp.txt", "r+");
-    ////fread(buffer,1,2048,f);
-    //if(strcmp("info", argv[i]) == 0)
-    //    info(argv[1]);
-    //if(strcmp("rotate_right", argv[i]) == 0)
-    //    rotate_right(argv[1]);
-    //if(strcmp("rotate_left", argv[i]) == 0)
-    //    rotate_left(argv[1]);
-    //if(strcmp("move", argv[i]) == 0)
-    //{
-    //    move(argv[1]);
-    //    wczytaj("mapa.txt",wizualizacja);
-    //    FILE *f = fopen("odp.json", "r+");
-    //    //fread(buffer,1,2048,f);
-    //    //wizualizacja->gra=stan_gry(buffer);
-    //    uzupelnij(wizualizacja);
-    //}
-    //
-    //if(strcmp("explore", argv[i]) == 0)
-    //{   
-    //    explore(argv[1]);
-    //    FILE *f = fopen("odp.json", "r+");
-    //    //fread(buffer,1,2048,f); 
-    //    wczytaj("mapa.txt",wizualizacja);
-    //    //wizualizacja->graex=stan_gry_ex(buffer);
-    //   // uzupelnijex(wizualizacja);
-    //    wypisztxt("mapa.txt",wizualizacja);
-    //    wypisz(wizualizacja);
-    //}
-    //if(strcmp("reset", argv[i]) == 0)
-    //{
-    //    reset(argv[1]);
-    //    ustawienie_poczatkowe(wizualizacja);
-    //    wypisztxt("mapa.txt",wizualizacja);
-    //}
+    if(strcmp(argv[2],"play")==0)
+    {
+        while(1)
+        {
+            fgets(komenda,20,stdin);
+            strcpy(komenda, strtok(komenda, "\n"));
+            if(strcmp(komenda, "reset") == 0)
+            {
+                reset(argv[1]);
+                wizualizacja=poczatek(argv[1]);
+            }
+            if(strcmp(komenda, "move") == 0)
+            {
+                rusz_naprzod(wizualizacja,argv[1]);
+                printf("Aktualne współrzędne czołgu:x=%d,y=%d\n",interpretuj_wspolrzedna_x(wizualizacja)+1,interpretuj_wspolrzedna_y(wizualizacja)+1);
+                printf("Kierunek zwrotu czołgu:%s\n",wizualizacja->gra->direction);
+            }
+            if(strcmp(komenda, "rotate_left") == 0)
+            {
+                rotate_left(argv[1]);
+                wczytaj_zapisz(wizualizacja);
+                printf("Aktualne współrzędne czołgu:x=%d,y=%d\n",interpretuj_wspolrzedna_x(wizualizacja)+1,interpretuj_wspolrzedna_y(wizualizacja)+1);
+                printf("Kierunek zwrotu czołgu:%s\n",wizualizacja->gra->direction);
+            }
+            if(strcmp(komenda, "rotate_right") == 0)
+            {
+                rotate_right(argv[1]);
+                wczytaj_zapisz(wizualizacja);
+                printf("Aktualne współrzędne czołgu:x=%d,y=%d\n",interpretuj_wspolrzedna_x(wizualizacja)+1,interpretuj_wspolrzedna_y(wizualizacja)+1);
+                printf("Kierunek zwrotu czołgu:%s\n",wizualizacja->gra->direction);
+            }
+            if(strcmp(komenda, "koniec_gry") == 0)
+            {
+                break;
+            }
+            if(strcmp(komenda, "explore") == 0)
+            {
+                eksploruj(wizualizacja,argv[1]);
+                printf("Aktualne współrzędne czołgu:x=%d,y=%d\n",interpretuj_wspolrzedna_x(wizualizacja)+1,interpretuj_wspolrzedna_y(wizualizacja)+1);
+                printf("Kierunek zwrotu czołgu:%s\n",wizualizacja->gra->direction);
+            }
+            if(strcmp(komenda, "info") == 0)
+            {
+                info(argv[1]);
+                wczytaj_zapisz(wizualizacja);
+                printf("Aktualne współrzędne czołgu:x=%d,y=%d\n",interpretuj_wspolrzedna_x(wizualizacja)+1,interpretuj_wspolrzedna_y(wizualizacja)+1);
+                printf("Kierunek zwrotu czołgu:%s\n",wizualizacja->gra->direction);
+            }
+        }
+    }
+}
 
+    zwolnij_stan(wizualizacja->gra);
+    zwolnij(wizualizacja->swiat);
+    zwolnij_stan_ex(wizualizacja->graex);
+    free(wizualizacja);
 
-    //FILE *f = fopen("odp.txt", "r");
-    //fread(buffer,1,2048,f);
-    //wizualizacja->gra=stan_gry(buffer);
-    //fclose(f);
-    //printf("%s\n",h->field_type);
-    //printf("%d\n",h->y1);
-    //printf("%d\n",h->x2);
-    //printf("%d\n",h->y2);
-    //printf("%d\n",h->x3);
-    //printf("%d\n",h->y3);
-    //printf("%s\n",h->type1);
-    //printf("%s\n",h->type2);
-    //printf("%s\n",h->type3);
-    //free(h);
-    //free(h->type1);
-    //free(h->type2);
-    //free(h->type3);
-    //fclose(f);
-    //}
     return 0;
 }

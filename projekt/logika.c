@@ -12,6 +12,11 @@ logika* poczatek(char*token)
     wizualizacja->gra=stan_gry(buffer);
     wizualizacja->swiat->poczatkowy_x=wizualizacja->gra->current_x;
     wizualizacja->swiat->poczatkowy_y=wizualizacja->gra->current_y;
+    wizualizacja->graex=(stanex*) malloc(sizeof(stanex));
+    for(int i=0;i<3;i++)
+    {
+    wizualizacja->graex->type[i] = (char*) malloc(sizeof(char));
+    }
     uzupelnij(wizualizacja);
     //wypisz(wizualizacja->swiat);
     wypisztxt("mapa.txt",wizualizacja->swiat);
@@ -19,47 +24,49 @@ logika* poczatek(char*token)
     return wizualizacja;
 }
 
-//logika* kontynuacja(char*token)
-//{
-//  char buffer[2048];
-//  logika* wizualizacja=(logika*) malloc(sizeof(logika));
-//  wizualizacja->swiat;
-//  wczytaj("mapa.txt",g->swiat);
-//  info(token);
-//  FILE *f = fopen("odp.json", "r+");
-//  fread(buffer,1,2048,f);
-//  wizualizacja->gra=stan_gry(buffer);
-//  wizualizacja->swiat->poczatkowy_x=wizualizacja->gra->current_x;
-//  wizualizacja->swiat->poczatkowy_y=wizualizacja->gra->current_y; 
-//
-//}
+logika* kontynuacja(char*token)
+{
+  char buffer[2048];
+  logika* wizualizacja=(logika*) malloc(sizeof(logika));
+  wizualizacja->swiat=(mapka*)malloc(sizeof(mapka));
+  wczytaj("mapa.txt",wizualizacja->swiat);
+  info(token);
+  FILE *f = fopen("odp.json", "r+");
+  fread(buffer,1,2048,f);
+  wizualizacja->gra=stan_gry(buffer);
+  wizualizacja->swiat->poczatkowy_x=wizualizacja->gra->current_x;
+  wizualizacja->swiat->poczatkowy_y=wizualizacja->gra->current_y; 
+
+}
 
 void wczytaj_zapisz(logika *g)
 {   
     
-    char buffer[2048];
-    wczytaj("mapa.txt",g->swiat);
-    FILE *f = fopen("odp.json", "r+");
-    fread(buffer,1,2048,f);
-    g->gra=stan_gry(buffer);
-    uzupelnij(g);
-    fclose(f);
-    wypisztxt("mapa.txt", g->swiat);
-    wypisz(g->swiat);
+  char buffer[2048];
+  wczytaj("mapa.txt",g->swiat);
+  FILE *f = fopen("odp.json", "r+");
+  fread(buffer,1,2048,f);
+  zwolnij_stan(g->gra);
+  g->gra=stan_gry(buffer);
+  uzupelnij(g);
+  fclose(f);
+  wypisztxt("mapa.txt", g->swiat);
+  wypisz(g->swiat);
 }
 
 void wczytaj_zapiszex(logika *g)
 {   
     
-    char buffer[2048];
-    wczytaj("mapa.txt",g->swiat);
-    FILE *f = fopen("odp.json", "r+");
-    fread(buffer,1,2048,f);
-    g->graex=stan_gry_ex(buffer);
-    uzupelnijex(g);
-    fclose(f);
-    wypisztxt("mapa.txt", g->swiat);
-    wypisz(g->swiat);
+  char buffer[2048];
+  wczytaj("mapa.txt",g->swiat);
+  FILE *f = fopen("odp.json", "r+");
+  fread(buffer,1,2048,f);
+  zwolnij_stan_ex(g->graex);
+  g->graex=stan_gry_ex(buffer);
+  uzupelnijex(g);
+  fclose(f);
+  wypisztxt("mapa.txt", g->swiat);
+  wypisz(g->swiat);
 }
 
 char tlumacz_teren(char *teren) {
@@ -252,46 +259,105 @@ void uzupelnijex(logika* m)
         m->swiat->mapa[interpretuj_wspolrzedna_y_ex(m,i)][interpretuj_wspolrzedna_x_ex(m,i)]= tlumacz_teren(m->graex->type[i]);
 }
 
+int rusz_naprzod(logika*g,char*token)
+{
+  int x;
+ if(strcmp(g->gra->direction,"N")==0)
+  x=rusz_do_gory(g,token);
+ else if(strcmp(g->gra->direction,"S")==0)
+  x=rusz_do_dolu(g,token);
+ else if(strcmp(g->gra->direction,"E")==0)
+  x=rusz_w_prawo(g,token);
+ else if(strcmp(g->gra->direction,"W")==0)
+  x=rusz_w_lewo(g,token);
+ 
+ return x;
+}
+
 void idz_do_sciany(logika*m,char*token)
 {
   eksploruj(m,token);
-  if(rusz_do_gory(m,token)!=1)
+  while(rusz_naprzod(m,token)!=1)
   {
     eksploruj(m,token);
-    while(rusz_do_gory(m,token)!=1)
-    {
-      eksploruj(m,token);
-      rusz_do_gory(m,token);
-      eksploruj(m,token);
-    }
   }
+  
  rotate_right(token);
- //eksploruj(m,token);
+ wczytaj_zapisz(m);
+ 
 }
 
-//void petla(logika*m,char*token)
-//{
-//  int s=0;
-//  int x=m->gra->current_x;
-//  int y=m->gra->current_y;
-//  while((m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)+1]!='w')&&(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]=='w'))
-//  {
-//    rusz_w_prawo(m,token);
-//    eksploruj(m,token);
-//    
-//  }
-//  
-//  
-//  
-//  
-//
-//  
-//  
-//
-//}
-//
-//void bot(logika*m,char*token)
-//{
-//  idz_do_sciany(logika*m,char*token);
-//  petla(logika*m,char*token);
-//}
+void idz_wzdluz_sciany(logika*m,char*token)
+{
+  eksploruj(m,token);
+  if(strcmp(m->gra->direction,"E")==0)
+  {
+  while(rusz_naprzod(m,token)!=1||(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]=='w'))
+  {
+    //rusz_naprzod(m,token);
+    eksploruj(m,token);
+  }
+  }
+
+  if(strcmp(m->gra->direction,"W")==0)
+  {
+  while(rusz_naprzod(m,token)!=1||(m->swiat->mapa[interpretuj_wspolrzedna_y(m)-1][interpretuj_wspolrzedna_x(m)]=='w'))
+  {
+    //rusz_naprzod(m,token);
+    eksploruj(m,token);
+  }
+  }
+
+  if(strcmp(m->gra->direction,"N")==0)
+  {
+  while(rusz_naprzod(m,token)!=1||(m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)-1]=='w'))
+  {
+    //rusz_naprzod(m,token);
+    eksploruj(m,token);
+  }
+  }
+
+  if(strcmp(m->gra->direction,"S")==0)
+  {
+  while(rusz_naprzod(m,token)!=1||(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)+1]=='w'))
+  {
+    //rusz_naprzod(m,token);
+    eksploruj(m,token);
+  }
+  }
+}
+
+void petla(logika*m,char*token)
+{
+  int s=0;
+  int x=m->gra->current_x;
+  int y=m->gra->current_y;
+  rusz_naprzod(m,token);
+  printf("%d%d%d%d",x,y,m->gra->current_x,m->gra->current_y);
+  while(m->gra->current_x!=x || m->gra->current_y!=y)
+  {
+  idz_wzdluz_sciany(m,token);
+  if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]!='w')
+  {
+    rotate_left(token);
+    wczytaj_zapisz(m);
+    s=s-1;
+    idz_wzdluz_sciany(m,token);
+  }
+  else
+  {
+    rotate_right(token);
+    s=s+1;
+    wczytaj_zapisz(m);
+
+  }
+  }
+  
+
+}
+
+void bot(logika*m,char*token)
+{
+  idz_do_sciany(m,token);
+  petla(m,token);
+}

@@ -36,10 +36,10 @@ stan* stan_gry(const char * const swiat)
     cJSON*field_type=cJSON_GetObjectItemCaseSensitive(payload, "field_type");
     cJSON*field_bonus=cJSON_GetObjectItemCaseSensitive(payload, "field_bonus");
     
-    gra->direction=(char*) malloc(sizeof(char)*strlen(direction->valuestring+1)+10);
-    gra->field_type=(char*) malloc(sizeof(char)*strlen(field_type->valuestring+1)+10);
-    gra->current_session=(char*) malloc(sizeof(char)*strlen(current_session->valuestring+1)+10);
-    gra->field_bonus=(char*) malloc(sizeof(char)*strlen(field_bonus->valuestring+1)+10);
+    gra->direction=(char*) malloc(sizeof(char)*strlen(direction->valuestring)+1);
+    gra->field_type=(char*) malloc(sizeof(char)*strlen(field_type->valuestring)+1);
+    gra->current_session=(char*) malloc(sizeof(char)*strlen(current_session->valuestring)+1);
+    gra->field_bonus=(char*) malloc(sizeof(char)*strlen(field_bonus->valuestring)+1);
     
 
     gra->name=name->valuestring;
@@ -101,7 +101,7 @@ stanex* stan_gry_ex(const char * const swiat)
 
         gra->x[i]=x->valueint;
         gra->y[i]=y->valueint;
-        gra->type[i] = (char*) malloc(sizeof(char) * (strlen(type->valuestring) + 1));
+        gra->type[i] = (char*) malloc(sizeof(char) * (strlen(type->valuestring))+1);
         strcpy(gra->type[i], type->valuestring);
         i++; 
     }
