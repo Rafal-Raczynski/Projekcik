@@ -289,39 +289,37 @@ void idz_do_sciany(logika*m,char*token)
 
 void idz_wzdluz_sciany(logika*m,char*token)
 {
+  
   eksploruj(m,token);
   if(strcmp(m->gra->direction,"E")==0)
   {
-  while(rusz_naprzod(m,token)!=1||(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]=='w'))
+  while(rusz_naprzod(m,token)!=1 && (m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]=='w'))
   {
-    //rusz_naprzod(m,token);
     eksploruj(m,token);
+    
   }
   }
 
   if(strcmp(m->gra->direction,"W")==0)
   {
-  while(rusz_naprzod(m,token)!=1||(m->swiat->mapa[interpretuj_wspolrzedna_y(m)-1][interpretuj_wspolrzedna_x(m)]=='w'))
+  while(rusz_naprzod(m,token)!=1 && (m->swiat->mapa[interpretuj_wspolrzedna_y(m)-1][interpretuj_wspolrzedna_x(m)]=='w'))
   {
-    //rusz_naprzod(m,token);
     eksploruj(m,token);
   }
   }
 
   if(strcmp(m->gra->direction,"N")==0)
   {
-  while(rusz_naprzod(m,token)!=1||(m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)-1]=='w'))
+  while(rusz_naprzod(m,token)!=1 && (m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)-1]=='w'))
   {
-    //rusz_naprzod(m,token);
     eksploruj(m,token);
   }
   }
 
   if(strcmp(m->gra->direction,"S")==0)
   {
-  while(rusz_naprzod(m,token)!=1||(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)+1]=='w'))
+  while(rusz_naprzod(m,token)!=1 && (m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)+1]=='w'))
   {
-    //rusz_naprzod(m,token);
     eksploruj(m,token);
   }
   }
@@ -329,31 +327,94 @@ void idz_wzdluz_sciany(logika*m,char*token)
 
 void petla(logika*m,char*token)
 {
+  int k=0;
   int s=0;
   int x=m->gra->current_x;
   int y=m->gra->current_y;
+  //eksploruj(g,token);
+  //while(rusz_naprzod(m,token)!=1)
+  //{
+  //  rotate_right(token);
+  //}
+  //rusz_naprzod(m,token);
+  //while(m->gra->current_x!=x || m->gra->current_y!=y)
+  //{
+  //  idz_do_sciany(m,token);
+  //}
+  //w funkcji eksploruj dodac ifa ze jesli wszystkie 3 odkryte pola sa to pominac funkcje
   rusz_naprzod(m,token);
-  printf("%d%d%d%d",x,y,m->gra->current_x,m->gra->current_y);
-  while(m->gra->current_x!=x || m->gra->current_y!=y)
-  {
-  idz_wzdluz_sciany(m,token);
-  if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]!='w')
-  {
-    rotate_left(token);
-    wczytaj_zapisz(m);
-    s=s-1;
-    idz_wzdluz_sciany(m,token);
-  }
-  else
-  {
-    rotate_right(token);
-    s=s+1;
-    wczytaj_zapisz(m);
-
-  }
-  }
+while(m->gra->current_x!=x || m->gra->current_y!=y)
+{
+idz_wzdluz_sciany(m,token);
+if(strcmp(m->gra->direction,"E")==0)
+{
   
+if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]!='w')
+{
+  rotate_left(token);
+  wczytaj_zapisz(m);
+  s=s-1;
+}
+else
+{
+  rotate_right(token);
+  s=s+1;
+  wczytaj_zapisz(m);
 
+}
+}
+else if(strcmp(m->gra->direction,"W")==0)
+{
+if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)-1][interpretuj_wspolrzedna_x(m)]!='w')
+{
+  rotate_left(token);
+  wczytaj_zapisz(m);
+  s=s-1;
+}
+else
+{
+  rotate_right(token);
+  s=s+1;
+  wczytaj_zapisz(m);
+
+}
+}
+else if(strcmp(m->gra->direction,"N")==0)
+{
+if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)-1]!='w')
+{
+  rotate_left(token);
+  wczytaj_zapisz(m);
+  s=s-1;
+}
+else
+{
+  rotate_right(token);
+  s=s+1;
+  wczytaj_zapisz(m);
+
+}
+}
+else if(strcmp(m->gra->direction,"S")==0)
+{
+if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)+1]!='w')
+{
+  rotate_left(token);
+  wczytaj_zapisz(m);
+  s=s-1;
+}
+else
+{
+  rotate_right(token);
+  s=s+1;
+  wczytaj_zapisz(m);
+
+}
+}
+
+}
+  
+printf("%d",s);
 }
 
 void bot(logika*m,char*token)

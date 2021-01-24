@@ -30,12 +30,11 @@ int main(int argc, char **argv)
     //rusz_w_lewo(wizualizacja,argv[1]);
     //rusz_w_prawo(wizualizacja,argv[1]);
     //idz_do_sciany(wizualizacja,argv[1]);
-    idz_do_sciany(wizualizacja,argv[1]);
-    //bot(wizualizacja,argv[1]);
+    //idz_do_sciany(wizualizacja,argv[1]);
+    if(strcmp(argv[2],"bot")==0)
+    bot(wizualizacja,argv[1]);
     //eksploruj(wizualizacja,argv[1]);
     //reset(argv[1]);
-if(argc>2)
-{    
     
     if(strcmp(argv[2],"play")==0)
     {
@@ -87,7 +86,7 @@ if(argc>2)
             }
         }
     }
-}
+
 
     zwolnij_stan(wizualizacja->gra);
     zwolnij(wizualizacja->swiat);
