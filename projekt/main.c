@@ -13,29 +13,13 @@
 
 int main(int argc, char **argv)
 {
-    //mapka* wizualizacja;
     char komenda [20];
     logika* wizualizacja;
-    wizualizacja=(logika*)malloc(sizeof(logika));
     char*token;
     wizualizacja=poczatek(argv[1]);
-    //rusz_do_gory(wizualizacja,argv[1]);
-    //eksploruj(wizualizacja,argv[1]);
-    //rusz_do_gory(wizualizacja,argv[1]);
-    //eksploruj(wizualizacja,argv[1]);
-    //rusz_do_gory(wizualizacja,argv[1]);
-    //eksploruj(wizualizacja,argv[1]);
-    //rusz_do_gory(wizualizacja,argv[1]);
-    //eksploruj(wizualizacja,argv[1]);
-    //rusz_w_lewo(wizualizacja,argv[1]);
-    //rusz_w_prawo(wizualizacja,argv[1]);
-    //idz_do_sciany(wizualizacja,argv[1]);
-    //idz_do_sciany(wizualizacja,argv[1]);
     if(strcmp(argv[2],"bot")==0)
     bot(wizualizacja,argv[1]);
-    //eksploruj(wizualizacja,argv[1]);
-    //reset(argv[1]);
-    
+
     if(strcmp(argv[2],"play")==0)
     {
         while(1)

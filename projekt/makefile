@@ -1,17 +1,42 @@
-DEPS=main.o komunikacja.o mapa.o cjsonik.o logika.o ../../cJSON/cJSON.o
+all:
+	cc main.c komunikacja.c mapa.c cjsonik.c logika.c ../../cJSON/cJSON.c -o odkurzacz -lcurl
 
+mapka:
+	cc mapa.c mapa_t.c -o mapa
 
-odkurzacz: $(DEPS)
-	cc $(DEPS) -o $@ -lcurl
+komunikacja:
+	cc komunikacja_t.c komunikacja.c -o komunikacja -lcurl
 
-%.o:%.c
-	cc -c $^ -o $@
+cjsonik:
+	cc cjsonik.c cjsonik_t.c ../../cJSON/cJSON.c -o cjsonik
 
+cjsonik-test:
+	./cjsonik
 
+cjsonik-test-memory:
+	valgrind ./cjsonik
+
+test-komunikacja:
+	./komunikacja
+
+test-komunikacja-memory:
+	valgrind ./komunikacja
+
+test-mapa:
+	./mapa
+
+test-mapa-memory:
+	valgrind ./mapa
 
 clean:
 	rm -f main
 	rm -f *.o
 
 test:
-	./odkurzacz qwerty_28 move explore rotate_right rotate_right explore 
+	./odkurzacz qwerty_28 bot
+
+test-memory:
+	valgrind ./odkurzacz qwerty_28 bot
+
+test-play:
+	./odkurzacz qwerty_28 play 

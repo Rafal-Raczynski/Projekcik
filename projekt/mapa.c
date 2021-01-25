@@ -9,8 +9,8 @@ void alokuj_pamiec_macierz(mapka*m,int wiersze,int kolumny)
     m->mapa = (char**) malloc(sizeof(char*) * wiersze);
     for (int i=wiersze-1;i>=0;i--) 
     {
-    m->mapa[i] = (char*) malloc(sizeof(char) * kolumny);
-    for (int j=0;j< kolumny; j++)
+        m->mapa[i] = (char*) malloc(sizeof(char) * kolumny);
+        for (int j=0;j< kolumny; j++)
         m->mapa[i][j] = j+1+i;
     }
     
@@ -176,8 +176,8 @@ mapka* ustawienie_poczatkowe(mapka *x)
 void zwolnij(mapka *x)
 {
     int i;
-     for (i=0;i<x->wiersze;i++) 
-        free( x->mapa[i] );
+    for (i=0;i<x->wiersze;i++) 
+    free( x->mapa[i] );
     free(x->mapa);
     free(x);
 }

@@ -30,7 +30,7 @@ void uzupelnijex(logika* m);
 void idz_do_sciany(logika*m,char*token);
 void idz_wzdluz_sciany(logika*m,char*token);
 int rusz_naprzod(logika*g,char*token);
-void petla(logika*m,char*token);
+int petla(logika*m,char*token);
 void bot(logika*m,char*token);
 void wczytaj_zapisz(logika *g);
 

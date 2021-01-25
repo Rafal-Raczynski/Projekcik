@@ -2,41 +2,25 @@
 
 logika* poczatek(char*token)
 {
-    char buffer[2048];
-    logika* wizualizacja=(logika*) malloc(sizeof(logika));
-    wizualizacja->swiat=ustawienie_poczatkowe(wizualizacja->swiat);
-    wypisz(wizualizacja->swiat);
-    info(token);
-    FILE *f = fopen("odp.json", "r+");
-    fread(buffer,1,2048,f);
-    wizualizacja->gra=stan_gry(buffer);
-    wizualizacja->swiat->poczatkowy_x=wizualizacja->gra->current_x;
-    wizualizacja->swiat->poczatkowy_y=wizualizacja->gra->current_y;
-    wizualizacja->graex=(stanex*) malloc(sizeof(stanex));
-    for(int i=0;i<3;i++)
-    {
-    wizualizacja->graex->type[i] = (char*) malloc(sizeof(char));
-    }
-    uzupelnij(wizualizacja);
-    //wypisz(wizualizacja->swiat);
-    wypisztxt("mapa.txt",wizualizacja->swiat);
-
-    return wizualizacja;
-}
-
-logika* kontynuacja(char*token)
-{
   char buffer[2048];
   logika* wizualizacja=(logika*) malloc(sizeof(logika));
-  wizualizacja->swiat=(mapka*)malloc(sizeof(mapka));
-  wczytaj("mapa.txt",wizualizacja->swiat);
+  wizualizacja->swiat=ustawienie_poczatkowe(wizualizacja->swiat);
+  wypisz(wizualizacja->swiat);
   info(token);
   FILE *f = fopen("odp.json", "r+");
   fread(buffer,1,2048,f);
   wizualizacja->gra=stan_gry(buffer);
+  fclose(f);
   wizualizacja->swiat->poczatkowy_x=wizualizacja->gra->current_x;
-  wizualizacja->swiat->poczatkowy_y=wizualizacja->gra->current_y; 
-
+  wizualizacja->swiat->poczatkowy_y=wizualizacja->gra->current_y;
+  wizualizacja->graex=(stanex*) malloc(sizeof(stanex));
+  for(int i=0;i<3;i++)
+  {
+    wizualizacja->graex->type[i] = (char*) malloc(sizeof(char));
+  }
+  uzupelnij(wizualizacja);
+  wypisztxt("mapa.txt",wizualizacja->swiat);
+  return wizualizacja;
 }
 
 void wczytaj_zapisz(logika *g)
@@ -325,25 +309,21 @@ void idz_wzdluz_sciany(logika*m,char*token)
   }
 }
 
-void petla(logika*m,char*token)
+int petla(logika*m,char*token)
 {
   int k=0;
   int s=0;
   int x=m->gra->current_x;
   int y=m->gra->current_y;
-  //eksploruj(g,token);
-  //while(rusz_naprzod(m,token)!=1)
-  //{
-  //  rotate_right(token);
-  //}
-  //rusz_naprzod(m,token);
-  //while(m->gra->current_x!=x || m->gra->current_y!=y)
-  //{
-  //  idz_do_sciany(m,token);
-  //}
+  eksploruj(m,token);
+  while(m->swiat->mapa[m->graex->x[1]][m->graex->y[1]]=='w')
+  {
+    rotate_right(token);
+    wczytaj_zapisz(m);
+  }
+
   //w funkcji eksploruj dodac ifa ze jesli wszystkie 3 odkryte pola sa to pominac funkcje
-  rusz_naprzod(m,token);
-while(m->gra->current_x!=x || m->gra->current_y!=y)
+while(m->gra->current_x!=x || m->gra->current_y!=y || (s!=4 && s!=-4))
 {
 idz_wzdluz_sciany(m,token);
 if(strcmp(m->gra->direction,"E")==0)
@@ -413,8 +393,13 @@ else
 }
 
 }
+
+if(s==4)
+return 1;
+else if(s==-4)
+return -1;
   
-printf("%d",s);
+
 }
 
 void bot(logika*m,char*token)
@@ -422,3 +407,4 @@ void bot(logika*m,char*token)
   idz_do_sciany(m,token);
   petla(m,token);
 }
+

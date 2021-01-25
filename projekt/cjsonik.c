@@ -41,8 +41,6 @@ stan* stan_gry(const char * const swiat)
     gra->current_session=(char*) malloc(sizeof(char)*strlen(current_session->valuestring)+1);
     gra->field_bonus=(char*) malloc(sizeof(char)*strlen(field_bonus->valuestring)+1);
     
-
-    gra->name=name->valuestring;
     gra->current_x=current_x->valueint;
     gra->current_y=current_y->valueint;
     strcpy(gra->current_session,current_session->valuestring);
@@ -52,8 +50,8 @@ stan* stan_gry(const char * const swiat)
     strcpy(gra->field_bonus,field_bonus->valuestring);
 
 
-  cJSON_Delete(swiat_json);
-  return gra;
+    cJSON_Delete(swiat_json);
+    return gra;
 
 }
 

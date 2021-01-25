@@ -1,7 +1,6 @@
 15
 10
 ..........
-..........
 .wwwwwwwww
 .wggggwggw
 .wgwwgwgww
@@ -14,4 +13,5 @@
 .wgsggwggw
 .wggggwggw
 .wwwwwwwww
+..........
 ..........

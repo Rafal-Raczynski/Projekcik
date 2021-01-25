@@ -75,8 +75,9 @@ void make_request(char*url)
            FILE *fin= fopen("odp.json","w+");
            fprintf(fin,"%s", chunk.response);
            fclose(fin);
-           printf("%s\n",chunk.response);
-            
+           
+           
+           
             
         }
 

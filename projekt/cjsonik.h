@@ -9,7 +9,7 @@
 
 typedef struct stan_gry
 {
-    char*name;
+    
     int current_x;
     int current_y;
     char* current_session;
