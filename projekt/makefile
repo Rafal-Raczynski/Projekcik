@@ -1,5 +1,5 @@
 all:
-	cc main.c komunikacja.c mapa.c cjsonik.c logika.c ../../cJSON/cJSON.c -o odkurzacz -lcurl
+	cc main.c komunikacja.c mapa.c cjsonik.c logika.c obrazek.c ../../cJSON/cJSON.c -o odkurzacz -lcurl -lpng
 
 mapka:
 	cc mapa.c mapa_t.c -o mapa

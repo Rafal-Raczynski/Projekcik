@@ -6,6 +6,7 @@
 #include "cjsonik.h"
 #include "mapa.h"
 #include "logika.h"
+#include "obrazek.h"
 
 
 
@@ -18,7 +19,10 @@ int main(int argc, char **argv)
     char*token;
     wizualizacja=poczatek(argv[1]);
     if(strcmp(argv[2],"bot")==0)
+    {
     bot(wizualizacja,argv[1]);
+    png_mapka(wizualizacja->swiat);
+    }
 
     if(strcmp(argv[2],"play")==0)
     {
@@ -36,6 +40,7 @@ int main(int argc, char **argv)
                 rusz_naprzod(wizualizacja,argv[1]);
                 printf("Aktualne współrzędne czołgu:x=%d,y=%d\n",interpretuj_wspolrzedna_x(wizualizacja)+1,interpretuj_wspolrzedna_y(wizualizacja)+1);
                 printf("Kierunek zwrotu czołgu:%s\n",wizualizacja->gra->direction);
+                png_mapka(wizualizacja->swiat);
             }
             if(strcmp(komenda, "rotate_left") == 0)
             {
@@ -43,6 +48,7 @@ int main(int argc, char **argv)
                 wczytaj_zapisz(wizualizacja);
                 printf("Aktualne współrzędne czołgu:x=%d,y=%d\n",interpretuj_wspolrzedna_x(wizualizacja)+1,interpretuj_wspolrzedna_y(wizualizacja)+1);
                 printf("Kierunek zwrotu czołgu:%s\n",wizualizacja->gra->direction);
+
             }
             if(strcmp(komenda, "rotate_right") == 0)
             {
@@ -60,6 +66,7 @@ int main(int argc, char **argv)
                 eksploruj(wizualizacja,argv[1]);
                 printf("Aktualne współrzędne czołgu:x=%d,y=%d\n",interpretuj_wspolrzedna_x(wizualizacja)+1,interpretuj_wspolrzedna_y(wizualizacja)+1);
                 printf("Kierunek zwrotu czołgu:%s\n",wizualizacja->gra->direction);
+                png_mapka(wizualizacja->swiat);
             }
             if(strcmp(komenda, "info") == 0)
             {
