@@ -192,14 +192,14 @@ void copy_tile(int xs, int ys, int width, int height, png_bytep *row_pointers, p
 int ktory_numer(char x)
 {
     
-    if(x=='g')
-    return 3;
-    else if (x=='w')
-    return 0;
-    else if (x=='s')
-    return 2;
-    else 
-    return 1;
+  if(x=='g')
+  return 3;
+  else if (x=='w')
+  return 0;
+  else if (x=='s')
+  return 2;
+  else 
+  return 1;
 }
 
 void png_mapka( mapka* x) 

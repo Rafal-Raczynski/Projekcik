@@ -265,10 +265,16 @@ void idz_do_sciany(logika*m,char*token)
   {
     eksploruj(m,token);
   }
+
+
+  while(m->swiat->mapa[interpretuj_wspolrzedna_y_ex(m,1)][interpretuj_wspolrzedna_x_ex(m,1)]=='w')
+  {
+  rotate_right(token);
+  wczytaj_zapisz(m);
+  eksploruj(m,token);
+  }
   
- rotate_right(token);
- wczytaj_zapisz(m);
- 
+  
 }
 
 void idz_wzdluz_sciany(logika*m,char*token)
@@ -311,18 +317,12 @@ void idz_wzdluz_sciany(logika*m,char*token)
 
 int petla(logika*m,char*token)
 {
-  int k=0;
+  int k=1;
   int s=0;
   int x=m->gra->current_x;
   int y=m->gra->current_y;
   eksploruj(m,token);
-  while(m->swiat->mapa[m->graex->x[1]][m->graex->y[1]]=='w')
-  {
-    rotate_right(token);
-    wczytaj_zapisz(m);
-  }
 
-  //w funkcji eksploruj dodac ifa ze jesli wszystkie 3 odkryte pola sa to pominac funkcje
 while(m->gra->current_x!=x || m->gra->current_y!=y || (s!=4 && s!=-4))
 {
 idz_wzdluz_sciany(m,token);
@@ -391,7 +391,9 @@ else
 
 }
 }
-
+ 
+ 
+ 
 }
 
 if(s==4)
@@ -399,7 +401,6 @@ return 1;
 else if(s==-4)
 return -1;
   
-
 }
 
 void bot(logika*m,char*token)
