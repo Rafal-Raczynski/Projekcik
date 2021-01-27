@@ -27,7 +27,6 @@ stan* stan_gry(const char * const swiat)
     }
 
     payload = cJSON_GetObjectItemCaseSensitive(swiat_json, "payload");
-    cJSON*name=cJSON_GetObjectItemCaseSensitive(payload, "name");
     cJSON*current_x=cJSON_GetObjectItemCaseSensitive(payload, "current_x");
     cJSON*current_y=cJSON_GetObjectItemCaseSensitive(payload, "current_y");
     cJSON*current_session=cJSON_GetObjectItemCaseSensitive(payload, "current_session");

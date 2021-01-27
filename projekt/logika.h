@@ -34,5 +34,6 @@ int petla(logika*m,char*token);
 void bot(logika*m,char*token);
 void wczytaj_zapisz(logika *g);
 
+void idz_wzdluz_sciany_specjalny(logika*m,char*token);
 
 #endif

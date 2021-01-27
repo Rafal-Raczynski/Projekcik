@@ -120,6 +120,7 @@ void wypisz(mapka* x)
                 printf("%4d",i+1);
             }
             printf("%4c", x->mapa[i][j]);
+            
         }
         
         printf("\n");

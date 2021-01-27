@@ -277,12 +277,95 @@ void idz_do_sciany(logika*m,char*token)
   
 }
 
+void idz_wzdluz_sciany_specjalny(logika*m,char*token)
+{
+  
+  eksploruj(m,token);
+  if(strcmp(m->gra->direction,"E")==0)
+  {
+    while((m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)+1]!='w') && (m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]=='w'))
+    {
+      rusz_naprzod(m,token);
+      eksploruj(m,token);
+    }
+      if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]!='w')
+          {
+            rotate_left(token);
+            wczytaj_zapisz(m);
+          }
+        else
+          {
+            rotate_right(token);
+            wczytaj_zapisz(m);
+          }
+  }
+
+  else if(strcmp(m->gra->direction,"W")==0)
+  {
+    while((m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)-1]!='w') && (m->swiat->mapa[interpretuj_wspolrzedna_y(m)-1][interpretuj_wspolrzedna_x(m)]=='w'))
+    {
+      rusz_naprzod(m,token);
+      eksploruj(m,token);
+    }
+      if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)-1][interpretuj_wspolrzedna_x(m)]!='w')   
+        {
+        rotate_left(token);
+        wczytaj_zapisz(m);
+        }
+        else
+        {
+          rotate_right(token);
+          wczytaj_zapisz(m);
+        }
+  }
+
+  else if(strcmp(m->gra->direction,"N")==0)
+  {
+  while((m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]!='w') && (m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)-1]=='w'))
+  {
+      rusz_naprzod(m,token);
+      eksploruj(m,token);
+  }
+      if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)-1]!='w')
+          {
+            rotate_left(token);
+            wczytaj_zapisz(m);
+          }
+        else
+          {
+            rotate_right(token);
+            wczytaj_zapisz(m);
+          }
+  }
+
+  else if(strcmp(m->gra->direction,"S")==0)
+  {
+  while((m->swiat->mapa[interpretuj_wspolrzedna_y(m)-1][interpretuj_wspolrzedna_x(m)]!='w') && (m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)+1]=='w'))
+  {
+    rusz_naprzod(m,token);
+      eksploruj(m,token);
+  }
+      if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)+1]!='w')
+          {
+            rotate_left(token);
+            wczytaj_zapisz(m);
+          }
+        else
+          {
+            rotate_right(token);
+            wczytaj_zapisz(m);
+
+          }
+  }
+}
+
 void idz_wzdluz_sciany(logika*m,char*token)
 {
   
   eksploruj(m,token);
   if(strcmp(m->gra->direction,"E")==0)
   {
+  //while(rusz_naprzod(m,token)!=1 && (m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]=='w'))
   while(rusz_naprzod(m,token)!=1 && (m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]=='w'))
   {
     eksploruj(m,token);
@@ -317,32 +400,31 @@ void idz_wzdluz_sciany(logika*m,char*token)
 
 int petla(logika*m,char*token)
 {
-  int k=1;
   int s=0;
   int x=m->gra->current_x;
   int y=m->gra->current_y;
   eksploruj(m,token);
 
 while(m->gra->current_x!=x || m->gra->current_y!=y || (s!=4 && s!=-4))
-{
-idz_wzdluz_sciany(m,token);
-if(strcmp(m->gra->direction,"E")==0)
-{
-  
-if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]!='w')
-{
-  rotate_left(token);
-  wczytaj_zapisz(m);
-  s=s-1;
-}
-else
-{
-  rotate_right(token);
-  s=s+1;
-  wczytaj_zapisz(m);
+  {
+    idz_wzdluz_sciany(m,token);
+    if(strcmp(m->gra->direction,"E")==0)
+      {
+      
+        if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)+1][interpretuj_wspolrzedna_x(m)]!='w')
+          {
+            rotate_left(token);
+            wczytaj_zapisz(m);
+            s=s-1;
+          }
+        else
+          {
+            rotate_right(token);
+            s=s+1;
+            wczytaj_zapisz(m);
 
-}
-}
+          }
+      }
 else if(strcmp(m->gra->direction,"W")==0)
 {
 if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)-1][interpretuj_wspolrzedna_x(m)]!='w')
@@ -359,41 +441,37 @@ else
 
 }
 }
-else if(strcmp(m->gra->direction,"N")==0)
-{
-if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)-1]!='w')
-{
-  rotate_left(token);
-  wczytaj_zapisz(m);
-  s=s-1;
-}
-else
-{
-  rotate_right(token);
-  s=s+1;
-  wczytaj_zapisz(m);
+    else if(strcmp(m->gra->direction,"N")==0)
+  {
+  if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)-1]!='w')
+    {
+      rotate_left(token);
+      wczytaj_zapisz(m);
+      s=s-1;
+    }
+  else
+    {
+      rotate_right(token);
+      s=s+1;
+      wczytaj_zapisz(m);
+    }
+  }
+    else if(strcmp(m->gra->direction,"S")==0)
+  {
+    if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)+1]!='w')
+    {
+      rotate_left(token);
+      wczytaj_zapisz(m);
+      s=s-1;
+    }
+    else
+    {
+      rotate_right(token);
+      s=s+1;
+      wczytaj_zapisz(m);
 
-}
-}
-else if(strcmp(m->gra->direction,"S")==0)
-{
-if(m->swiat->mapa[interpretuj_wspolrzedna_y(m)][interpretuj_wspolrzedna_x(m)+1]!='w')
-{
-  rotate_left(token);
-  wczytaj_zapisz(m);
-  s=s-1;
-}
-else
-{
-  rotate_right(token);
-  s=s+1;
-  wczytaj_zapisz(m);
-
-}
-}
- 
- 
- 
+    }
+  }
 }
 
 if(s==4)
@@ -406,6 +484,11 @@ return -1;
 void bot(logika*m,char*token)
 {
   idz_do_sciany(m,token);
-  petla(m,token);
+  idz_wzdluz_sciany_specjalny(m, token);
+  while(petla(m,token)!=1)
+  {
+    idz_do_sciany(m,token);
+    idz_wzdluz_sciany_specjalny(m, token);
+  }
 }
 
