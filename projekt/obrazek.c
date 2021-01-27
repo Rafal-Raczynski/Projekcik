@@ -15,10 +15,7 @@
  * of the X11 license.
  *
  */
-
 #include "obrazek.h"
-
-
 
 void read_png_file(char *filename, int *width, int *height, 
      png_byte *color_type,  
@@ -74,7 +71,8 @@ void read_png_file(char *filename, int *width, int *height,
   if (*row_pointers) abort();
 
   *row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * *height);
-  for(int y = 0; y < *height; y++) {
+  for(int y = 0; y < *height; y++) 
+  {
     (*row_pointers)[y] = (png_byte*)malloc(png_get_rowbytes(png,info));
   }
 
@@ -190,13 +188,12 @@ void copy_tile(int xs, int ys, int width, int height, png_bytep *row_pointers, p
 
 
 int ktory_numer(char x)
-{
-    
+{  
   if(x=='g')
   return 3;
-  else if (x=='w')
+  else if(x=='w')
   return 0;
-  else if (x=='s')
+  else if(x=='s')
   return 2;
   else 
   return 1;
@@ -223,7 +220,6 @@ void png_mapka( mapka* x)
       }
     }
     write_png_file("mapa.png", (x->kolumny)*32, (x->wiersze)*32, color_type, bit_depth, row_pointers_out);
-
     for(int i = 0; i < height; i++)
     {
       free(row_pointers[i]);

@@ -1,11 +1,5 @@
 #include"komunikacja.h"
 
-
-
-
-
-
-
 static size_t write_callback(void *data, size_t size, size_t nmemb, void *userp)
 {
     /* to jest rzeczywista liczba bajtów przekazanych przez curl */
@@ -49,39 +43,19 @@ void make_request(char*url)
     {
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-        //curl_easy_setopt(curl, CURLOPT_HEADER, 1L);
-
-        /* to jest funkcja 'callback', która będzie wywołana przez curl gdy odczyta on kawałek danych
-       ta funkcja musi mieć wywołanie zgodne z wymaganiami, które możesz sprawdzić tutaj:
-       https://curl.se/libcurl/c/CURLOPT_WRITEFUNCTION.html */
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-
-        /* to jest adress struktury, który będzie przekazywany do naszej funkcji 'callback',
-       do tej struktury nasz funkcja 'callback' będzie dopisywać wynik */
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
-
-        /* Wykonaj zapytanie 'synchronicznie', to znaczy następna linijka kodu nie wykona się
-       dopóki nie nadejdzie odpowiedź z serwera. */
         res = curl_easy_perform(curl);
-
-        /* Sprawdzamy czy wystapił jakis błąd? */
         if (res != CURLE_OK)
         {
-            fprintf(stderr, "Błąd! curl_easy_perform() niepowodzenie: %s\n", curl_easy_strerror(res));
-            
+            fprintf(stderr, "Błąd! curl_easy_perform() niepowodzenie: %s\n", curl_easy_strerror(res)); 
         }    
         else
         {
            FILE *fin= fopen("odp.json","w+");
            fprintf(fin,"%s", chunk.response);
            fclose(fin);
-           
-           
-           
-            
         }
-
-        /* zawsze po sobie sprzątaj */
         free(chunk.response);
         curl_easy_cleanup(curl);
     }
@@ -105,7 +79,6 @@ void move(char*token)
     make_request(url);
 }
 
-
 void explore(char*token)
 {
     char url[255]; 
@@ -121,7 +94,6 @@ void rotate_left(char*token)
     strcat(url,token);
     strcat(url,"/left");
     make_request(url);
-    
 }
 
 void rotate_right(char*token)
@@ -131,7 +103,6 @@ void rotate_right(char*token)
     strcat(url,token);
     strcat(url,"/right");
     make_request(url);
-    
 }
 
 void reset(char*token)

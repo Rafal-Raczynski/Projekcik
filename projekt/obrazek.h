@@ -1,5 +1,6 @@
 #ifndef obrazek_h
 #define obrazek_h
+
 #include <png.h>
 #include "logika.h"
 
@@ -22,8 +23,5 @@ png_bytep * create_image(int width, int height);
 void png_mapka( mapka* x);
 
 int ktory_numer(char x);
-
-
-
 
 #endif

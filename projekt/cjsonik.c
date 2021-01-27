@@ -1,6 +1,4 @@
-
 #include "cjsonik.h"
-
 
 stan* stan_gry(const char * const swiat)
 {
@@ -8,7 +6,6 @@ stan* stan_gry(const char * const swiat)
     gra=(stan*) malloc(sizeof(stan));
     const cJSON *payload = NULL;
     const cJSON *status = NULL;
-    //int status = 0;
     cJSON *swiat_json = cJSON_Parse(swiat);
     if (swiat_json == NULL)
     {
@@ -19,7 +16,6 @@ stan* stan_gry(const char * const swiat)
         }
         status = 0;
     }
-
     status = cJSON_GetObjectItemCaseSensitive(swiat_json, "status");
     if (cJSON_IsString(status) && (status->valuestring == "Success"))
     {
@@ -34,25 +30,24 @@ stan* stan_gry(const char * const swiat)
     cJSON*step=cJSON_GetObjectItemCaseSensitive(payload, "step");
     cJSON*field_type=cJSON_GetObjectItemCaseSensitive(payload, "field_type");
     cJSON*field_bonus=cJSON_GetObjectItemCaseSensitive(payload, "field_bonus");
-    
+
     gra->direction=(char*) malloc(sizeof(char)*strlen(direction->valuestring)+1);
     gra->field_type=(char*) malloc(sizeof(char)*strlen(field_type->valuestring)+1);
     gra->current_session=(char*) malloc(sizeof(char)*strlen(current_session->valuestring)+1);
     gra->field_bonus=(char*) malloc(sizeof(char)*strlen(field_bonus->valuestring)+1);
-    
     gra->current_x=current_x->valueint;
     gra->current_y=current_y->valueint;
+
     strcpy(gra->current_session,current_session->valuestring);
     strcpy(gra->direction,direction->valuestring);
     gra->step=step->valueint;
     strcpy(gra->field_type,field_type->valuestring);
     strcpy(gra->field_bonus,field_bonus->valuestring);
-
-
     cJSON_Delete(swiat_json);
-    return gra;
 
+    return gra;
 }
+
 
 stanex* stan_gry_ex(const char * const swiat)
 {
@@ -63,8 +58,6 @@ stanex* stan_gry_ex(const char * const swiat)
     const cJSON *payload = NULL;
     const cJSON *list = NULL;
     const cJSON *status = NULL;
-    
-     
     
     cJSON *swiat_json = cJSON_Parse(swiat);
     if (swiat_json == NULL)

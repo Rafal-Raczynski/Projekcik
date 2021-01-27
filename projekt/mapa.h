@@ -14,16 +14,25 @@ typedef struct Mapka
 }mapka;
 
 void alokuj_pamiec_macierz(mapka*m,int wiersze,int kolumny);
-void przesun_macierz(mapka *nowa,mapka*m,int dx, int dy);
-mapka* nowa_macierz_gora(mapka*m);
-mapka* nowa_macierz_prawo(mapka*m);
-mapka* nowa_macierz_lewo(mapka*m);
-mapka* nowa_macierz_dol(mapka*m);
-void wypisz(mapka* x);
-void wypisztxt(char*fnazwa,mapka* x);
-void wczytaj(char*fnazwa,mapka*x);
-mapka* ustawienie_poczatkowe(mapka *x);
-void zwolnij(mapka *x);
 
+void przesun_macierz(mapka *nowa,mapka*m,int dx, int dy);
+
+mapka* nowa_macierz_gora(mapka*m);
+
+mapka* nowa_macierz_prawo(mapka*m);
+
+mapka* nowa_macierz_lewo(mapka*m);
+
+mapka* nowa_macierz_dol(mapka*m);
+
+void wypisz(mapka* x);
+
+void wypisztxt(char*fnazwa,mapka* x);
+
+void wczytaj(char*fnazwa,mapka*x);
+
+mapka* ustawienie_poczatkowe(mapka *x);
+
+void zwolnij(mapka *x);
 
 #endif

@@ -8,10 +8,6 @@
 #include "logika.h"
 #include "obrazek.h"
 
-
-
-
-
 int main(int argc, char **argv)
 {
     char komenda [20];
@@ -20,8 +16,8 @@ int main(int argc, char **argv)
     wizualizacja=poczatek(argv[1]);
     if(strcmp(argv[2],"bot")==0)
     {
-    bot(wizualizacja,argv[1]);
-    png_mapka(wizualizacja->swiat);
+        bot(wizualizacja,argv[1]);
+        png_mapka(wizualizacja->swiat);
     }
 
     if(strcmp(argv[2],"play")==0)
@@ -77,7 +73,6 @@ int main(int argc, char **argv)
             }
         }
     }
-
 
     zwolnij_stan(wizualizacja->gra);
     zwolnij(wizualizacja->swiat);

@@ -1,7 +1,6 @@
 #ifndef cjsonik_h
 #define cjsonik_h
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "../../cJSON/cJSON.h"
@@ -9,7 +8,6 @@
 
 typedef struct stan_gry
 {
-    
     int current_x;
     int current_y;
     char* current_session;
@@ -27,9 +25,11 @@ typedef struct stan_gryex
 }stanex;
 
 stan* stan_gry(const char * const swiat);
+
 stanex* stan_gry_ex(const char * const swiat);
+
 void zwolnij_stan(stan* x);
+
 void zwolnij_stan_ex(stanex* x);
-//void wypisz_macierz(plansza xd);
 
 #endif

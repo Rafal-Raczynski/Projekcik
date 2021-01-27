@@ -1,6 +1,4 @@
-
 #include "mapa.h"
-
 
 int main(int argc, char **argv)
 {

@@ -1,6 +1,5 @@
 #include "cjsonik.h"
 
-
 int main()
 {
     char buffer[2048];
